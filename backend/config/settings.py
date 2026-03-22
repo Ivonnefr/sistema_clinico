@@ -109,10 +109,10 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
-    'AUTH_HEADER_TYPES': ('Bearer',),
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60), #   Cambia el tiempo de vida del token de acceso a 60 minutos. Access token es el que se usa en cada request para autenticar al usuario.
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1), #  sirve para generar uno nuevo sin volver a logearte
+    "AUTH_HEADER_TYPES": ("Bearer",), # El tipo de encabezado que se espera para la autenticación. En este caso, se espera un encabezado de autorización con el formato "Bearer
 }
-
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
