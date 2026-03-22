@@ -17,3 +17,12 @@ class IsStaff(BasePermission):
             hasattr(request.user, "odontologo") or
             hasattr(request.user, "recepcionista")
         )
+    
+    
+class IsActiveUser(BasePermission):
+    def has_permission(self, request, view):
+        return (
+            request.user
+            and request.user.is_authenticated
+            and request.user.is_active
+        )
