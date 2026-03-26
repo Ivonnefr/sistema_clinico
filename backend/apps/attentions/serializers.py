@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from .models import Atencion
-
+from .models import Attention
 class AttentionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Atencion
+        model = Attention
         fields = '__all__'
+        read_only_fields = ['dentist']
