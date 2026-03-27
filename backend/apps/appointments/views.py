@@ -2,6 +2,8 @@ from rest_framework import viewsets
 from .models import Appointment
 from .serializers import AppointmentSerializer
 from apps.users.permissions import IsActiveUser, IsRecepcionista, IsOdontologo
+from rest_framework.decorators import action
+from rest_framework.response import Response
 
 
 class AppointmentViewSet(viewsets.ModelViewSet):
@@ -42,3 +44,9 @@ class AppointmentViewSet(viewsets.ModelViewSet):
         # Si es recepcionista, usa el que viene del request
         else:
             serializer.save()
+            
+    @action(detail=False, methods=['get'])
+    def calendar(self, request):
+        queryset = Appointment.objects.all()
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
