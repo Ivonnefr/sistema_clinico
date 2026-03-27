@@ -16,7 +16,7 @@ class AppointmentViewSet(viewsets.ModelViewSet):
 
         # Crear cita (solo recepcionista)
         elif self.action == "create":
-            permission_classes = [IsActiveUser, IsRecepcionista]
+            permission_classes = [IsActiveUser]
 
         # Actualizar
         elif self.action in ["update", "partial_update"]:
@@ -30,3 +30,15 @@ class AppointmentViewSet(viewsets.ModelViewSet):
             permission_classes = [IsActiveUser]
 
         return [permission() for permission in permission_classes]
+    
+    def perform_create(self, serializer): # perform_create es un metodo que ya existe en Django REST Framework, se sobreescribe para agregar la logica de asignar el dentista automaticamente
+        # Es un override
+        user = self.request.user
+
+        # Si es dentista, se asigna solo
+        if hasattr(user, "odontologo"):
+            serializer.save(dentist=user)
+
+        # Si es recepcionista, usa el que viene del request
+        else:
+            serializer.save()

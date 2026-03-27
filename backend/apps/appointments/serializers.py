@@ -6,3 +6,6 @@ class AppointmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Appointment
         fields = '__all__'
+        extra_kwargs = {
+            'dentist': {'required': False}
+        }
