@@ -6,7 +6,7 @@ from .models import Patient
 from .serializers import PatientSerializer
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
-from apps.users.permissions import IsOdontologo, IsRecepcionista, IsStaff, IsActiveUser
+from apps.users.permissions import IsDentist, IsStaff, IsActiveUser
 
 # PatientViewSet es una vista que maneja las operaciones CRUD para el modelo Patient, se va a usar para el endpoint /patients/ y se le asigna el permiso IsAuthenticated para que solo los usuarios autenticados puedan acceder a esta vista, si no estás autenticado te va a devolver un error 401 Unauthorized
 class PatientViewSet(viewsets.ModelViewSet):
@@ -22,10 +22,10 @@ class PatientViewSet(viewsets.ModelViewSet):
             permission_classes = [IsActiveUser, IsStaff]
 
         elif self.action in ["update", "partial_update"]:
-            permission_classes = [IsActiveUser, IsOdontologo]
+            permission_classes = [IsActiveUser, IsDentist]
 
         elif self.action == "destroy":
-            permission_classes = [IsActiveUser, IsOdontologo]
+            permission_classes = [IsActiveUser, IsDentist]
 
         else:
             permission_classes = [IsActiveUser]

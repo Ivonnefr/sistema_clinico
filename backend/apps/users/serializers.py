@@ -10,9 +10,9 @@ class MeSerializer(serializers.ModelSerializer):
         model = User
         fields = ["id", "email", "role"]
     def get_role(self, obj):
-        if hasattr(obj, 'odontologo'):
-            return 'odontologo'
-        if hasattr(obj, 'recepcionista'):
-            return 'recepcionista'
+        if hasattr(obj, 'dentist'):
+            return 'dentist'
+        if hasattr(obj, 'receptionist'):
+            return 'receptionist'
         else:
             return 'admin'

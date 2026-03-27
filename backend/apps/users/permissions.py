@@ -1,21 +1,21 @@
 from rest_framework.permissions import BasePermission
 # Solo para clases de permisos
 
-class IsOdontologo(BasePermission):
+class IsDentist(BasePermission):
     def has_permission(self, request, view):
-        return hasattr(request.user, "odontologo")
-    # Si es odontologo se le permite acceder a las vistas protegidas por este permiso, de lo contrario se le deniega el acceso.
+        return hasattr(request.user, "dentist")
+    # Si es dentista se le permite acceder a las vistas protegidas por este permiso, de lo contrario se le deniega el acceso.
 
-class IsRecepcionista(BasePermission):
+class IsReceptionist(BasePermission):
     def has_permission(self, request, view):
-        return hasattr(request.user, "recepcionista")
+        return hasattr(request.user, "receptionist")
     # Si es recepcionista se le permite acceder a las vistas protegidas por este permiso, de lo contrario se le deniega el acceso.
 
 class IsStaff(BasePermission):
     def has_permission(self, request, view):
         return (
-            hasattr(request.user, "odontologo") or
-            hasattr(request.user, "recepcionista")
+            hasattr(request.user, "dentist") or
+            hasattr(request.user, "receptionist")
         )
     
     

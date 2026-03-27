@@ -3,7 +3,7 @@ from rest_framework import viewsets
 from .models import Attention
 from .serializers import AttentionSerializer
 from rest_framework.permissions import IsAuthenticated
-from apps.users.permissions import IsActiveUser, IsOdontologo
+from apps.users.permissions import IsActiveUser, IsDentist
 
 class AttentionViewSet(viewsets.ModelViewSet):
     queryset = Attention.objects.all()
@@ -12,13 +12,13 @@ class AttentionViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
 
         if self.action in ["list", "retrieve"]:
-            permission_classes = [IsActiveUser, IsOdontologo]
+            permission_classes = [IsActiveUser, IsDentist]
 
         elif self.action == "create":
-            permission_classes = [IsActiveUser, IsOdontologo]
+            permission_classes = [IsActiveUser, IsDentist]
 
         elif self.action in ["update", "partial_update", "destroy"]:
-            permission_classes = [IsActiveUser, IsOdontologo]
+            permission_classes = [IsActiveUser, IsDentist]
 
         else:
             permission_classes = [IsActiveUser]

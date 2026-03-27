@@ -14,7 +14,7 @@ class User(AbstractUser):
     def __str__(self):
         return self.email
 
-class Odontologo(models.Model):
+class Dentist(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)
@@ -24,7 +24,7 @@ class Odontologo(models.Model):
     def __str__(self):
         return f"{self.first_name} {self.last_name} - {self.speciality}"
         
-class Recepcionista(models.Model):
+class Receptionist(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=100)

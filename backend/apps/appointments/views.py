@@ -1,7 +1,7 @@
 from rest_framework import viewsets
 from .models import Appointment
 from .serializers import AppointmentSerializer
-from apps.users.permissions import IsActiveUser, IsRecepcionista, IsOdontologo
+from apps.users.permissions import IsActiveUser, IsReceptionist, IsDentist
 from rest_framework.decorators import action
 from rest_framework.response import Response
 
@@ -26,7 +26,7 @@ class AppointmentViewSet(viewsets.ModelViewSet):
 
         # Eliminar
         elif self.action == "destroy":
-            permission_classes = [IsActiveUser, IsRecepcionista]
+            permission_classes = [IsActiveUser, IsReceptionist]
 
         else:
             permission_classes = [IsActiveUser]
@@ -38,7 +38,7 @@ class AppointmentViewSet(viewsets.ModelViewSet):
         user = self.request.user
 
         # Si es dentista, se asigna solo
-        if hasattr(user, "odontologo"):
+        if hasattr(user, "dentist"):
             serializer.save(dentist=user)
 
         # Si es recepcionista, usa el que viene del request
