@@ -31,5 +31,6 @@ class PatientViewSet(viewsets.ModelViewSet):
             permission_classes = [IsActiveUser]
 
         return [permission() for permission in permission_classes]
+   
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)

@@ -6,3 +6,6 @@ class PatientSerializer(serializers.ModelSerializer):
         model = Patient
         fields = '__all__'
         read_only_fields = ['created_by']
+    
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
