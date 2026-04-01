@@ -1,7 +1,7 @@
 from django.db import models
 from apps.patients.models import Patient
 from apps.users.models import User
-
+from apps.appointments.models import Appointment
 
 class Attention(models.Model):
     patient = models.ForeignKey(
@@ -15,7 +15,11 @@ class Attention(models.Model):
         on_delete=models.CASCADE,
         related_name="attentions"
     )
-
+    appointment = models.ForeignKey(
+        Appointment,
+        on_delete=models.PROTECT,
+        related_name="attentions"
+    )
     date = models.DateTimeField(auto_now_add=True)
 
     observations = models.TextField(blank=True, null=True)
