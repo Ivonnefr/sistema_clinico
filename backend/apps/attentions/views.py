@@ -37,3 +37,4 @@ class AttentionViewSet(viewsets.ModelViewSet):
 
         # Dentista ve solo sus atenciones
         return Attention.objects.filter(dentist=user)
+    
