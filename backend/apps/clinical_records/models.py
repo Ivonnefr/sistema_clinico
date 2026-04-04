@@ -1,6 +1,5 @@
 from django.db import models
 from apps.patients.models import Patient
-from apps.attentions.models import Attention
 
 
 class ClinicalRecord(models.Model):
@@ -22,7 +21,7 @@ class ClinicalRecord(models.Model):
 
 class ClinicalEvolution(models.Model):
     attention = models.ForeignKey(
-        Attention,
+        'attentions.Attention',
         on_delete=models.CASCADE,
         related_name="evolutions"
     )

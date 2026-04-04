@@ -15,7 +15,7 @@ class Attention(models.Model):
         on_delete=models.CASCADE,
         related_name="attentions"
     )
-    appointment = models.ForeignKey(
+    appointment = models.OneToOneField(
         Appointment,
         on_delete=models.PROTECT,
         related_name="attentions"
