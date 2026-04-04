@@ -2,7 +2,7 @@ from django.db import models
 from apps.patients.models import Patient
 from apps.users.models import User
 from apps.appointments.models import Appointment
-
+from apps.clinical_records.models import ClinicalRecord
 class Attention(models.Model):
     patient = models.ForeignKey(
         Patient,
@@ -20,6 +20,15 @@ class Attention(models.Model):
         on_delete=models.PROTECT,
         related_name="attentions"
     )
+    
+    clinical_record = models.ForeignKey(
+        ClinicalRecord,
+        on_delete=models.CASCADE,
+        related_name="attentions",
+        null=True,   # 👈 TEMPORAL
+        blank=True
+    )
+            
     date = models.DateTimeField(auto_now_add=True)
 
     observations = models.TextField(blank=True, null=True)

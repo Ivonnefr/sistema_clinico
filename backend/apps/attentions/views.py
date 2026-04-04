@@ -26,7 +26,12 @@ class AttentionViewSet(viewsets.ModelViewSet):
         return [permission() for permission in permission_classes]
 
     def perform_create(self, serializer):
-        serializer.save(dentist=self.request.user)
+        patient = serializer.validated_data['patient'] # Obtener el objeto Patient
+
+        serializer.save(
+            dentist=self.request.user, # El usuario autenticado o sea el dentista que hace la consulta
+            clinical_record=patient.clinical_record # Obtener la ficha clinica del paciente
+        )
         
     def get_queryset(self):
         user = self.request.user

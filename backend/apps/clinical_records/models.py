@@ -1,5 +1,6 @@
 from django.db import models
 from apps.patients.models import Patient
+from apps.attentions.models import Attention
 
 
 class ClinicalRecord(models.Model):
@@ -17,3 +18,18 @@ class ClinicalRecord(models.Model):
 
     def __str__(self):
         return f"Clinical Record - Patient {self.patient_id}"
+    
+
+class ClinicalEvolution(models.Model):
+    attention = models.ForeignKey(
+        Attention,
+        on_delete=models.CASCADE,
+        related_name="evolutions"
+    )
+
+    description = models.TextField()
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Evolution {self.id} - Attention {self.attention_id}"
