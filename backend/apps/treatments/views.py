@@ -2,6 +2,7 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from apps.users.permissions import IsActiveUser, IsDentist
 from .models import CatalogProcedure, ExecutedProcedure, Budget, BudgetDetail
+from django.db.models import Count, Q, Prefetch
 
 from .serializers import (
     CatalogProcedureSerializer,
@@ -77,11 +78,29 @@ class BudgetViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        
+
         if user.is_staff:
-            return Budget.objects.all()
-        
-        return Budget.objects.filter(dentist=user)
+            queryset = Budget.objects.all()
+        else:
+            queryset = Budget.objects.filter(dentist=user)
+
+        queryset = queryset.annotate(
+            total_count=Count('details', distinct=True),
+            executed_count=Count(
+                'details',
+                filter=Q(details__executions__isnull=False),
+                distinct=True
+            )
+        ).prefetch_related(
+            Prefetch(
+                'details',
+                queryset=BudgetDetail.objects.annotate(
+                    executions_count=Count('executions')
+                )
+            )
+        )
+
+        return queryset
 
     def perform_create(self, serializer):
         serializer.save(dentist=self.request.user)

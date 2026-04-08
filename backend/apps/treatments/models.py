@@ -1,7 +1,7 @@
 from django.db import models
 
 
-class CatalogProcedure(models.Model):
+class CatalogProcedure(models.Model): # Catalogo de procedimientos
     name = models.CharField(max_length=255)
 
     base_price = models.DecimalField(
@@ -18,7 +18,7 @@ class CatalogProcedure(models.Model):
         return self.name
     
 
-class ExecutedProcedure(models.Model):
+class ExecutedProcedure(models.Model): # Procedimiento ejecutado
     attention = models.ForeignKey(
         'attentions.Attention',
         on_delete=models.CASCADE,
@@ -57,7 +57,7 @@ class ExecutedProcedure(models.Model):
     def __str__(self):
         return f"{self.catalog_procedure.name} - Attention {self.attention_id}"
     
-class Budget(models.Model):
+class Budget(models.Model): # Presupuesto
     clinical_record = models.ForeignKey(
         'clinical_records.ClinicalRecord',
         on_delete=models.CASCADE,
@@ -85,7 +85,7 @@ class Budget(models.Model):
     def __str__(self):
         return f"Budget {self.id} - ClinicalRecord {self.clinical_record_id}"
 
-class BudgetDetail(models.Model):
+class BudgetDetail(models.Model): # Detalle del presupuesto
     budget = models.ForeignKey(
         'treatments.Budget',
         on_delete=models.CASCADE,
