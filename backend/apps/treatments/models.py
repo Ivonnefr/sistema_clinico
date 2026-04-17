@@ -61,6 +61,11 @@ class ExecutedProcedure(models.Model): # Procedimiento ejecutado
     )
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def save(self, *args, **kwargs):
+        if not self.price:
+            self.price = self.catalog_procedure.base_price
+        super().save(*args, **kwargs)
+        
     def __str__(self):
         return f"{self.catalog_procedure.name} - Attention {self.attention_id}"
     

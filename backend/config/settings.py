@@ -46,7 +46,9 @@ INSTALLED_APPS = [
     'apps.clinical_records',
     'apps.treatments',
     'apps.payments',
-]
+    'apps.dashboard',
+    
+    ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

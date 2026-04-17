@@ -31,4 +31,5 @@ urlpatterns = [
     path('api/', include('apps.clinical_records.urls')),
     path('api/', include('apps.treatments.urls')),
     path('api/', include('apps.payments.urls')),
+    path('api/dashboard/', include('apps.dashboard.urls')),
 ]   
